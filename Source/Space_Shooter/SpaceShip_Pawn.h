@@ -4,7 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include "InputActionValue.h"
 #include "SpaceShip_Pawn.generated.h"
+
+//Calling Projectiles class.
+class AProjectiles_Actor;
 
 UCLASS()
 class SPACE_SHOOTER_API ASpaceShip_Pawn : public APawn
@@ -25,5 +29,76 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	//Main collection for SpaceShip mesh.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space ship Mesh")
+		UMeshComponent* Space_Ship;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space ship Mesh")
+		class UCameraComponent* Camera;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space ship Mesh")
+		class USpringArmComponent* SpringArm;
+
+
+	////////////////////////////////////////////////////////////////////////////////////
+	//Main collection for variables.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space ship Variables")
+		int MaxAmmo;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space ship Variables")
+		float MovementSpeed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space ship Variables")
+		int HealthPoints;
+
+
+	////////////////////////////////////////////////////////////////////////////////////
+	//Subclasses (Class of another class)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space ship SubClass")
+		TSubclassOf<AProjectiles_Actor> Projectiles_BP;
+
+
+	////////////////////////////////////////////////////////////////////////////////////
+	//Sound
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space Ship Sound")
+		USoundBase* ReloadSound;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space Ship Sound")
+		USoundBase* ShootingSound;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space Ship Sound")
+		USoundBase* AmmoEmptySound;
+
+
+	////////////////////////////////////////////////////////////////////////////////////
+	//Input Controller.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inputsystem")
+		class UInputMappingContext* IMC;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inputsystem")
+		class UInputAction* IA_Move;
+
+
+	////////////////////////////////////////////////////////////////////////////////////
+	//Movement.
+	UFUNCTION(BlueprintCallable, Category = "Spaceship Movement")
+		void Movement(const FInputActionValue& Value);
+
+
+	////////////////////////////////////////////////////////////////////////////////////
+private:
+	//Private variables.
+
+
+	////////////////////////////////////////////////////////////////////////////////////
+private:
+	//Private functions for control.
+
+	//Private functions for variable management.
+	void Shoot();
+	void Reload();
+	void PlayerHit();
+
 
 };
