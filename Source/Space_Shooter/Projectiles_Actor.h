@@ -23,4 +23,39 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	//Projectile components.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Collision Component")
+		class USphereComponent* Collision;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile Component")
+		UStaticMeshComponent* Projectile;
+
+	////////////////////////////////////////////////////////////////////////////////////
+	///Collision control.
+	UFUNCTION()
+		void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+			UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex,
+			bool bFromSweep, const FHitResult& SweepResult);
+
+	////////////////////////////////////////////////////////////////////////////////////
+	///Projectile functions.
+	UFUNCTION(BlueprintCallable)
+		void DespawnProjectile();
+
+	
+
+	////////////////////////////////////////////////////////////////////////////////////
+	//Projectile variables
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile variable")
+	    int ProjectileDespawnTime;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile variable")
+		float ProjectileSpeed;
+
+
+	////////////////////////////////////////////////////////////////////////////////////
+private:
+	//Private variables.
+	float ProjectileTime;
+
 };

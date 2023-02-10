@@ -25,8 +25,9 @@ ASpaceShip_Pawn::ASpaceShip_Pawn()
 	//Initializing the spring arm.
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Spring Arm"));
 	SpringArm->SetupAttachment(Space_Ship);
-	SpringArm->TargetArmLength = 300.f;
-	SpringArm->SetRelativeRotation(FRotator(-15.f, 0.f, 0.f));
+	SpringArm->TargetArmLength = 250.f;
+	SpringArm->SetRelativeLocation(FVector3d(0.f, 0.f, 50.f));
+	SpringArm->SetRelativeRotation(FRotator(-20.f, 0.f, 0.f));
 	SpringArm->bEnableCameraLag = true; //Gives tha camera physics when a collision or physical law is implemented.
 	SpringArm->CameraLagSpeed = 0.f;
 
@@ -37,6 +38,7 @@ ASpaceShip_Pawn::ASpaceShip_Pawn()
 	////////////////////////////////////////////////////////////////////////////////////
 	//Setting default values for variables.
 	MaxAmmo = 10;
+	Ammo = 10;
 	MovementSpeed =  1000.f;
 	HealthPoints = 5;
 
@@ -84,6 +86,9 @@ void ASpaceShip_Pawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 	{
 		EnhancedInputComponent->BindAction(IA_Move, ETriggerEvent::Triggered, this, &ASpaceShip_Pawn::Movement);
 		EnhancedInputComponent->BindAction(IA_Look,ETriggerEvent::Triggered, this, &ASpaceShip_Pawn::Look);
+		EnhancedInputComponent->BindAction(IA_Shoot, ETriggerEvent::Triggered, this, &ASpaceShip_Pawn::Shoot);
+		EnhancedInputComponent->BindAction(IA_Reload, ETriggerEvent::Triggered, this, &ASpaceShip_Pawn::Reload);
+
 	}
 
 }
@@ -122,5 +127,24 @@ void ASpaceShip_Pawn::Look(const FInputActionValue& Value)
 	}
 
 	
+}
+
+void ASpaceShip_Pawn::Shoot()
+{
+	if(Ammo > 0)
+	{
+		Ammo--;
+		GetWorld()->SpawnActor<AProjectiles_Actor>(Projectiles_BP, GetActorLocation() + FVector(30.f, 0.f, 0.f), GetActorRotation());
+	}
+}
+
+void ASpaceShip_Pawn::Reload()
+{
+	Ammo = MaxAmmo;
+}
+
+
+void ASpaceShip_Pawn::PlayerHit()
+{
 }
 

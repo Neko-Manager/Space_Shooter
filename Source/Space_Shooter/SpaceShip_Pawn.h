@@ -44,6 +44,9 @@ public:
 	////////////////////////////////////////////////////////////////////////////////////
 	//Main collection for variables.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space ship Variables")
+		int Ammo;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space ship Variables")
 		int MaxAmmo;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space ship Variables")
@@ -82,6 +85,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inputsystem Look")
 		class UInputAction* IA_Look;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inputsystem Shoot")
+		class UInputAction* IA_Shoot;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inputsystem Reload")
+		class UInputAction* IA_Reload;
+
 
 	////////////////////////////////////////////////////////////////////////////////////
 	//Movement and vision to declare what will happen if the Triggered InputAction is met.
@@ -101,9 +110,16 @@ private:
 	//Private functions for control.
 
 	//Private functions for variable management.
+	UFUNCTION(BlueprintCallable, Category = "Spaceship Look")
 	void Shoot();
+
+	UFUNCTION(BlueprintCallable, Category = "Spaceship Reload")
 	void Reload();
+
+	UFUNCTION(BlueprintCallable, Category = "Spaceship PlayerHit")
 	void PlayerHit();
+
+
 
 
 };
