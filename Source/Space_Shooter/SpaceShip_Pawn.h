@@ -76,15 +76,20 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inputsystem")
 		class UInputMappingContext* IMC;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inputsystem")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inputsystem Move")
 		class UInputAction* IA_Move;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inputsystem Look")
+		class UInputAction* IA_Look;
 
 
 	////////////////////////////////////////////////////////////////////////////////////
-	//Movement.
+	//Movement and vision.
 	UFUNCTION(BlueprintCallable, Category = "Spaceship Movement")
 		void Movement(const FInputActionValue& Value);
 
+	UFUNCTION(BlueprintCallable, Category = "Spaceship Look")
+		void Look(const FInputActionValue& Value);
 
 	////////////////////////////////////////////////////////////////////////////////////
 private:

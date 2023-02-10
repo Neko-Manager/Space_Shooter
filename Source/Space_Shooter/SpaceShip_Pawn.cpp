@@ -25,7 +25,7 @@ ASpaceShip_Pawn::ASpaceShip_Pawn()
 	//Initializing the spring arm.
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Spring Arm"));
 	SpringArm->SetupAttachment(Space_Ship);
-	SpringArm->TargetArmLength = 200.f;
+	SpringArm->TargetArmLength = 300.f;
 	SpringArm->SetRelativeRotation(FRotator(-15.f, 0.f, 0.f));
 	SpringArm->bEnableCameraLag = true; //Gives tha camera physics when a collision or physical law is implemented.
 	SpringArm->CameraLagSpeed = 0.f;
@@ -50,7 +50,7 @@ void ASpaceShip_Pawn::BeginPlay()
 {
 	Super::BeginPlay();
 
-	APlayerController* PlayerController = Cast<APlayerController>(Controller);
+	APlayerController* PlayerController = Cast<APlayerController>(GetController());
 
 	if(PlayerController)
 	{
@@ -79,21 +79,37 @@ void ASpaceShip_Pawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 	if(UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(PlayerInputComponent))
 	{
 		EnhancedInputComponent->BindAction(IA_Move, ETriggerEvent::Triggered, this, &ASpaceShip_Pawn::Movement);
+		EnhancedInputComponent->BindAction(IA_Look,ETriggerEvent::Triggered, this, &ASpaceShip_Pawn::Look);
 	}
 
 }
 
 void ASpaceShip_Pawn::Movement(const FInputActionValue& Value)
 {
-	const FVector3d VectorMove = Value.Get<FVector3d>();
+	if (Controller && (Value.IsNonZero())) 
+	{
+		const FVector3d VectorMove = Value.Get<FVector3d>();
 
-	const FVector3d Up_Down = GetActorUpVector();
-	const FVector3d Forward_Backward = GetActorForwardVector();
-	const FVector3d Right_Left = GetActorRightVector();
+		const FVector3d Up_Down = GetActorUpVector();
+		const FVector3d Forward_Backward = GetActorForwardVector();
+		const FVector3d Right_Left = GetActorRightVector();
 
-	AddMovementInput(Up_Down, VectorMove.Z);
-	AddMovementInput(Forward_Backward, VectorMove.Y);
-	AddMovementInput(Right_Left, VectorMove.X);
+		AddMovementInput(Up_Down, VectorMove.Z);
+		AddMovementInput(Forward_Backward, VectorMove.Y);
+		AddMovementInput(Right_Left, VectorMove.X);
+	}
+}
 
+void ASpaceShip_Pawn::Look(const FInputActionValue& Value)
+{
+	if (GetController()) 
+	{
+		const FVector2D LookAxisInput = Value.Get<FVector2D>();
+
+		AddControllerYawInput(LookAxisInput.X);
+		AddControllerPitchInput(LookAxisInput.Y);
+	}
+
+	
 }
 
