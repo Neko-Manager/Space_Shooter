@@ -72,7 +72,7 @@ public:
 
 
 	////////////////////////////////////////////////////////////////////////////////////
-	//Input Controller.
+	//Input Controller to define InputAction.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inputsystem")
 		class UInputMappingContext* IMC;
 
@@ -84,7 +84,7 @@ public:
 
 
 	////////////////////////////////////////////////////////////////////////////////////
-	//Movement and vision.
+	//Movement and vision to declare what will happen if the Triggered InputAction is met.
 	UFUNCTION(BlueprintCallable, Category = "Spaceship Movement")
 		void Movement(const FInputActionValue& Value);
 
