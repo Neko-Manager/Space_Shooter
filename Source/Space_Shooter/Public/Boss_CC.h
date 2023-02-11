@@ -6,6 +6,8 @@
 #include "GameFramework/Pawn.h"
 #include "Boss_CC.generated.h"
 
+
+
 UCLASS()
 class SPACE_SHOOTER_API ABoss_CC : public APawn
 {
@@ -25,5 +27,31 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+
+	// Boss Public Constructors
+
+
+
+
+	// Boss Private Constructors
+
+
+
+
+	// Boss Public Variables
+
+
+
+
+
+	// Boss Private Variables
+
+
+
+
+
+
+
 
 };
