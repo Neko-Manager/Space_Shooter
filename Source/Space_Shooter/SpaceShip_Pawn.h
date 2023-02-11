@@ -32,7 +32,7 @@ public:
 
 	//Main collection for SpaceShip mesh.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space ship Mesh")
-		UMeshComponent* Space_Ship;
+		UStaticMeshComponent* Space_Ship;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space ship Mesh")
 		class UCameraComponent* Camera;

@@ -1,11 +1,19 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
+//Our classes
 #include "SpaceShip_Pawn.h"
 #include "Projectiles_Actor.h"
+
+//Components
+#include "Components/StaticMeshComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+
+//Other
 #include "Kismet/GameplayStatics.h"
+#include "Components/BoxComponent.h"
+#include "Engine/World.h"
+#include "Blueprint/UserWidget.h"
 
 //Inputs
 #include "EnhancedInputComponent.h"
@@ -24,15 +32,22 @@ ASpaceShip_Pawn::ASpaceShip_Pawn()
 	//Initializing the spring arm.
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Spring Arm"));
 	SpringArm->SetupAttachment(Space_Ship);
-	SpringArm->TargetArmLength = 250.f;
+	SpringArm->TargetArmLength = 500.f;
 	SpringArm->SetRelativeLocation(FVector3d(0.f, 0.f, 50.f));
 	SpringArm->SetRelativeRotation(FRotator(-20.f, 0.f, 0.f));
 	SpringArm->bEnableCameraLag = true; //Gives tha camera physics when a collision or physical law is implemented.
-	SpringArm->CameraLagSpeed = 0.f;
+	SpringArm->CameraLagSpeed = 0.5f;
 
 	//Initializing the camera.
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(SpringArm);
+
+	//Overides Basic mesh and selects a model from the file system
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> Model3D(TEXT("StaticMesh'/Game/Assets/Models/Mesh/PlayerShip'"));
+
+	if (Model3D.Succeeded()) {
+		Space_Ship->SetStaticMesh(Model3D.Object);
+	}
 
 	////////////////////////////////////////////////////////////////////////////////////
 	//Setting default values for variables.
@@ -42,6 +57,9 @@ ASpaceShip_Pawn::ASpaceShip_Pawn()
 	HealthPoints = 5;
 
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
+
+
+
 }   
 
 
@@ -135,7 +153,7 @@ void ASpaceShip_Pawn::Shoot()
 	{
 		//If check is yes, then minus one ammo per trigger action to keep the information displayed correct, and removing the infinite ammo.
 		Ammo--;
-		GetWorld()->SpawnActor<AProjectiles_Actor>(Projectiles_BP, GetActorLocation() + FVector(30.f, 0.f, 0.f), GetActorRotation());
+		GetWorld()->SpawnActor<AProjectiles_Actor>(Projectiles_BP, GetActorLocation() + FVector(100.f, 0, 0.f), GetActorRotation());
 	}
 }
 
