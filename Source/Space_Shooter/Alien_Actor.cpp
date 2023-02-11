@@ -32,3 +32,7 @@ void AAlien_Actor::Tick(float DeltaTime)
 
 }
 
+void AAlien_Actor::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+}
+
