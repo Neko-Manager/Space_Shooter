@@ -23,4 +23,19 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	//Main collection for Alien
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Alien component")
+
+		class UBoxComponent* Colision_2;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Alien component")
+		UStaticMeshComponent* Alien;
+
+	////////////////////////////////////////////////////////////////////////////////////
+	//Collision control.
+	UFUNCTION()
+		void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+			UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex,
+			bool bFromSweep, const FHitResult& SweepResult);
+
 };
