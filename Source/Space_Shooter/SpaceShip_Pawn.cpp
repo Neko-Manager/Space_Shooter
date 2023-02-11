@@ -5,7 +5,6 @@
 #include "Projectiles_Actor.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
-#include "Space_ShooterGameModeBase.h"
 #include "Kismet/GameplayStatics.h"
 
 //Inputs
@@ -96,7 +95,7 @@ void ASpaceShip_Pawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 void ASpaceShip_Pawn::Movement(const FInputActionValue& Value)
 {
 	//Checking i the controller is not a NullPointer and a Controller.
-	if (Controller && (Value.IsNonZero())) 
+	if (Controller && Value.IsNonZero()) 
 	{
 		//Creating a general const variable for the type of vector we want to recieve/work with.
 		const FVector3d VectorMove = Value.Get<FVector3d>();
@@ -131,8 +130,10 @@ void ASpaceShip_Pawn::Look(const FInputActionValue& Value)
 
 void ASpaceShip_Pawn::Shoot()
 {
+	//Checking if ammo is greater than zero.
 	if(Ammo > 0)
 	{
+		//If check is yes, then minus one ammo per trigger action to keep the information displayed correct, and removing the infinite ammo.
 		Ammo--;
 		GetWorld()->SpawnActor<AProjectiles_Actor>(Projectiles_BP, GetActorLocation() + FVector(30.f, 0.f, 0.f), GetActorRotation());
 	}

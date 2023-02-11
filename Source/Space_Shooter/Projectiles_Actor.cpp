@@ -22,7 +22,7 @@ AProjectiles_Actor::AProjectiles_Actor()
 	////////////////////////////////////////////////////////////////////////////////////
 	//Initializing default values for variables.
 	ProjectileDespawnTime = 10.f;
-	ProjectileSpeed = 1000.f;
+	ProjectileSpeed = 5000.f;
 }
 
 // Called when the game starts or when spawned
