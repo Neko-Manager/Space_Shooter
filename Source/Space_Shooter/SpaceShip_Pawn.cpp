@@ -33,8 +33,7 @@ ASpaceShip_Pawn::ASpaceShip_Pawn()
 
 
 	
-	static ConstructorHelpers::FObjectFinder<USoundCue> propellerCue(
-		TEXT("'/Game/Audio/Shoot_SW'"));
+	static ConstructorHelpers::FObjectFinder<USoundCue> propellerCue(TEXT("'/Game/Audio/Shoot_SW'"));
 
 	//Storing the aduio cue
 	//ShootAudioCue = ShootAudioCue.Object;
@@ -43,24 +42,27 @@ ASpaceShip_Pawn::ASpaceShip_Pawn()
 	ShootAudioComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("PropellerAudioComp"));
 
 	// Attach our sound cue to the SoundComponent
-	if (ShootAudioCue->IsValidLowLevelFast()) {
+	if (ShootAudioCue->IsValidLowLevelFast()) 
+	{
 		ShootAudioComponent->SetSound(ShootAudioCue);
 	}
 
-	// I don't want the sound playing the moment it's created.
-	ShootAudioComponent->bAutoActivate = false;
-	// I want the sound to follow the pawn around, so I attach it to the Pawns root.
-	ShootAudioComponent->SetupAttachment(GetRootComponent());
-	// I want the sound to come from slighty in front of the pawn.
-	ShootAudioComponent->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
 
 	//Initializing the Space Ship. -> /*Abstract*/
 	Space_Ship = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Space ship"));
 	SetRootComponent(Space_Ship);
 
+	// I don't want the sound playing the moment it's created.
+	ShootAudioComponent->bAutoActivate = false;
+	// I want the sound to follow the pawn around, so I attach it to the Pawns root.
+	ShootAudioComponent->SetupAttachment(Space_Ship);
+	// I want the sound to come from slighty in front of the pawn.
+	ShootAudioComponent->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
+
+
 	//Initializing the spring arm.
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Spring Arm"));
-	SpringArm->SetupAttachment(GetRootComponent());
+	SpringArm->SetupAttachment(Space_Ship);
 	SpringArm->TargetArmLength = 500.f;
 	SpringArm->SetRelativeLocation(FVector3d(0.f, 0.f, 50.f));
 	SpringArm->SetRelativeRotation(FRotator(-20.f, 0.f, 0.f));
@@ -81,7 +83,7 @@ ASpaceShip_Pawn::ASpaceShip_Pawn()
 	////////////////////////////////////////////////////////////////////////////////////
 	//Setting default values for variables.
 	MaxAmmo = 10;
-	Ammo = 10;
+	Ammo = 20;
 	MovementSpeed =  1000.f;
 	HealthPoints = 5;
 
@@ -185,7 +187,8 @@ void ASpaceShip_Pawn::Shoot()
 
 		//If check is yes, then minus one ammo per trigger action to keep the information displayed correct, and removing the infinite ammo.
 		Ammo--;
-		GetWorld()->SpawnActor<AProjectiles_Actor>(Projectiles_BP, GetActorLocation() + FVector(100.f, 0, 0.f), GetActorRotation());
+		GetWorld()->SpawnActor<AProjectiles_Actor>(Projectiles_BP, GetActorLocation() + FVector(100.f, 0, 0.f), GetActorRotation()),
+		GetWorld()->SpawnActor<AProjectiles_Actor>(Projectiles_BP, GetActorLocation() + FVector(-100.f, 0, 0.f), GetActorRotation());
 	}
 }
 
