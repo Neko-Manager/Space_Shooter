@@ -23,4 +23,22 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	//Main collection for Beacon mesh.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space ship Mesh")
+		class UCapsuleComponent* Colision_3;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space ship Mesh")
+		UStaticMeshComponent* Beacon;
+
+	////////////////////////////////////////////////////////////////////////////////////
+	//Collision control.
+	UFUNCTION()
+		void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+			UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex,
+			bool bFromSweep, const FHitResult& SweepResult);
+
+	////////////////////////////////////////////////////////////////////////////////////
+	//Variables
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space ship Variables")
+		int BeaconHealth;
 };

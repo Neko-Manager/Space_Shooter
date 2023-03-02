@@ -24,15 +24,12 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	//Main collection for Alien
-	
-	////////////////////////////////////////////////////////////////////////////////////
-	//Components.
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Alien component")
 		class UBoxComponent* Colision_2{ nullptr };
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Alien component")
-		class UStaticMeshComponent* Alien;
+		UStaticMeshComponent* Alien;
 
 	////////////////////////////////////////////////////////////////////////////////////
 	//Collision control.
@@ -48,7 +45,7 @@ public:
 		void DestroyAlien();
 
 	////////////////////////////////////////////////////////////////////////////////////
-	//Verriables.
+	//Variables.
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "My Verriables")
 		float MovementSpeed;

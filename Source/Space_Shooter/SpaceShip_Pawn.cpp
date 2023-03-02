@@ -187,8 +187,11 @@ void ASpaceShip_Pawn::Shoot()
 
 		//If check is yes, then minus one ammo per trigger action to keep the information displayed correct, and removing the infinite ammo.
 		Ammo--;
-		GetWorld()->SpawnActor<AProjectiles_Actor>(Projectiles_BP, GetActorLocation() + FVector(100.f, 0, 0.f), GetActorRotation()),
-		GetWorld()->SpawnActor<AProjectiles_Actor>(Projectiles_BP, GetActorLocation() + FVector(-100.f, 0, 0.f), GetActorRotation());
+		float Radius = 100.f;
+		
+		//Need to fix relative spawn for bullets.
+		GetWorld()->SpawnActor<AProjectiles_Actor>(Projectiles_BP, GetActorLocation() + FVector(Radius,0,0), GetActorRotation());
+		GetWorld()->SpawnActor<AProjectiles_Actor>(Projectiles_BP, GetActorLocation() + FVector(-Radius,0,0), GetActorRotation());
 	}
 }
 

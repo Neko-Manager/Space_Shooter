@@ -56,6 +56,8 @@ public:
 		int HealthPoints;
 
 
+
+
 	////////////////////////////////////////////////////////////////////////////////////
 	//Subclasses (Class of another class)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space ship SubClass")

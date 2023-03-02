@@ -4,6 +4,7 @@
 #include "Alien_Actor.h"
 #include "SpaceShip_Pawn.h"
 #include "Projectiles_Actor.h"
+#include "Beacon_Actor.h"
 
 //Components
 #include "Components/StaticMeshComponent.h"
@@ -32,7 +33,7 @@ AAlien_Actor::AAlien_Actor()
 	Colision_2->OnComponentBeginOverlap.AddDynamic(this, &AAlien_Actor::OnOverlap);
 
 	Alien = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
-	Alien->SetupAttachment(GetRootComponent());
+	Alien->SetupAttachment(Alien);
 
 	//Overides Basic mesh and selects a model from the file system
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> Model3D(TEXT("StaticMesh'/Game/Assets/Models/Mesh/Spaceinvader'"));
@@ -77,14 +78,16 @@ void AAlien_Actor::Tick(float DeltaTime)
 
 void AAlien_Actor::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	/*if(OtherActor->IsA<AProjectiles_Actor>())
+	if(OtherActor->IsA<ABeacon_Actor>())
 	{
-		Cast<>
-	}*/
+		DestroyAlien();
+	}
 }
 
 void AAlien_Actor::DestroyAlien()
 {
-
+	SetActorHiddenInGame(true);
+	SetActorEnableCollision(false);
+	this->Destroy();
 }
 
