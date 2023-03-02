@@ -21,6 +21,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubSystems.h"
 
+
 // Sets default values
 AAlien_Actor::AAlien_Actor()
 {
@@ -60,6 +61,7 @@ void AAlien_Actor::Tick(float DeltaTime)
 
 
 	// Move
+
 	FVector NewLocation = GetActorLocation();
 	NewLocation += GetActorForwardVector() * MovementSpeed * DeltaTime;
 	SetActorLocation(NewLocation);
