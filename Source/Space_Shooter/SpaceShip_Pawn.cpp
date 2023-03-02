@@ -21,7 +21,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubSystems.h"
 
-	//Initializing Sound Cue and component
+//Initializing Sound Cue and component
 USoundCue* ShootAudioCue;
 UAudioComponent* ShootAudioComponent;
 

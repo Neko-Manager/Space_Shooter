@@ -2,6 +2,8 @@
 
 //Our classes
 #include "Alien_Actor.h"
+#include "SpaceShip_Pawn.h"
+#include "Projectiles_Actor.h"
 
 //Components
 #include "Components/StaticMeshComponent.h"
@@ -23,8 +25,6 @@ AAlien_Actor::AAlien_Actor()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
-	
 
 	Colision_2 = CreateDefaultSubobject<UBoxComponent>(TEXT("Collider"));
 	SetRootComponent(Colision_2);
@@ -77,9 +77,14 @@ void AAlien_Actor::Tick(float DeltaTime)
 
 void AAlien_Actor::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
+	/*if(OtherActor->IsA<AProjectiles_Actor>())
+	{
+		Cast<>
+	}*/
 }
 
 void AAlien_Actor::DestroyAlien()
 {
+
 }
 
