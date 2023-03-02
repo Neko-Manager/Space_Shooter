@@ -73,7 +73,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space Ship Sound")
 		USoundBase* AmmoEmptySound;
 
-
 	////////////////////////////////////////////////////////////////////////////////////
 	//Input Controller to define InputAction.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inputsystem")

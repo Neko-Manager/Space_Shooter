@@ -8,16 +8,22 @@
 #include "Components/StaticMeshComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Components/AudioComponent.h"
 
 //Other
 #include "Kismet/GameplayStatics.h"
 #include "Components/BoxComponent.h"
 #include "Engine/World.h"
 #include "Blueprint/UserWidget.h"
+#include "Sound/SoundCue.h"
 
 //Inputs
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubSystems.h"
+
+	//Initializing Sound Cue and component
+USoundCue* ShootAudioCue;
+UAudioComponent* ShootAudioComponent;
 
 // Sets default values
 ASpaceShip_Pawn::ASpaceShip_Pawn()
@@ -25,22 +31,45 @@ ASpaceShip_Pawn::ASpaceShip_Pawn()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	//Initializing the Space Ship.
-	Space_Ship = CreateAbstractDefaultSubobject<UStaticMeshComponent>(TEXT("Space ship"));
+
+	
+	static ConstructorHelpers::FObjectFinder<USoundCue> propellerCue(
+		TEXT("'/Game/Audio/Shoot_SW'"));
+
+	//Storing the aduio cue
+	//ShootAudioCue = ShootAudioCue.Object;
+
+	//Create the audio component
+	ShootAudioComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("PropellerAudioComp"));
+
+	// Attach our sound cue to the SoundComponent
+	if (ShootAudioCue->IsValidLowLevelFast()) {
+		ShootAudioComponent->SetSound(ShootAudioCue);
+	}
+
+	// I don't want the sound playing the moment it's created.
+	ShootAudioComponent->bAutoActivate = false;
+	// I want the sound to follow the pawn around, so I attach it to the Pawns root.
+	ShootAudioComponent->SetupAttachment(GetRootComponent());
+	// I want the sound to come from slighty in front of the pawn.
+	ShootAudioComponent->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
+
+	//Initializing the Space Ship. -> /*Abstract*/
+	Space_Ship = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Space ship"));
 	SetRootComponent(Space_Ship);
 
 	//Initializing the spring arm.
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Spring Arm"));
-	SpringArm->SetupAttachment(Space_Ship);
+	SpringArm->SetupAttachment(GetRootComponent());
 	SpringArm->TargetArmLength = 500.f;
 	SpringArm->SetRelativeLocation(FVector3d(0.f, 0.f, 50.f));
 	SpringArm->SetRelativeRotation(FRotator(-20.f, 0.f, 0.f));
 	SpringArm->bEnableCameraLag = true; //Gives tha camera physics when a collision or physical law is implemented.
-	SpringArm->CameraLagSpeed = 0.5f;
+	SpringArm->CameraLagSpeed = 1.f;
 
 	//Initializing the camera.
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
-	Camera->SetupAttachment(SpringArm);
+	Camera->SetupAttachment(SpringArm, USpringArmComponent::SocketName);
 
 	//Overides Basic mesh and selects a model from the file system
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> Model3D(TEXT("StaticMesh'/Game/Assets/Models/Mesh/PlayerShip'"));
@@ -151,6 +180,9 @@ void ASpaceShip_Pawn::Shoot()
 	//Checking if ammo is greater than zero.
 	if(Ammo > 0)
 	{
+		//play Audio
+		ShootAudioComponent->Play();
+
 		//If check is yes, then minus one ammo per trigger action to keep the information displayed correct, and removing the infinite ammo.
 		Ammo--;
 		GetWorld()->SpawnActor<AProjectiles_Actor>(Projectiles_BP, GetActorLocation() + FVector(100.f, 0, 0.f), GetActorRotation());

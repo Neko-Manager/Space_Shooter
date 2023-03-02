@@ -71,7 +71,8 @@ void AAlien_Actor::Tick(float DeltaTime)
 
 	//Same principle as in Movement, but with 2 vectors.
 
-
+	GetActorRotation();
+	
 }
 
 void AAlien_Actor::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
