@@ -3,6 +3,7 @@
 //Our classes
 #include "SpaceShip_Pawn.h"
 #include "Projectiles_Actor.h"
+#include "Alien_Actor.h"
 
 //Components
 #include "Components/StaticMeshComponent.h"
@@ -75,6 +76,7 @@ ASpaceShip_Pawn::ASpaceShip_Pawn()
 
 	//Overides Basic mesh and selects a model from the file system
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> Model3D(TEXT("StaticMesh'/Game/Assets/Models/Mesh/PlayerShip'"));
+
 
 	if (Model3D.Succeeded()) {
 		Space_Ship->SetStaticMesh(Model3D.Object);
@@ -177,6 +179,16 @@ void ASpaceShip_Pawn::Look(const FInputActionValue& Value)
 	
 }
 
+void ASpaceShip_Pawn::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	if(OtherActor->IsA<AAlien_Actor>())
+	{
+		HealthPoints--;
+		GEngine->AddOnScreenDebugMessage(0, 1.f, FColor::Emerald, "HP -1");
+	}
+}
+
+
 void ASpaceShip_Pawn::Shoot()
 {
 	//Checking if ammo is greater than zero.
@@ -197,11 +209,10 @@ void ASpaceShip_Pawn::Shoot()
 
 void ASpaceShip_Pawn::Reload()
 {
+	//Reloads ammo to max.
 	Ammo = MaxAmmo;
 }
 
 
-void ASpaceShip_Pawn::PlayerHit()
-{
-}
+
 

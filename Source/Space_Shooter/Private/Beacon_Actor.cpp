@@ -62,9 +62,10 @@ void ABeacon_Actor::Tick(float DeltaTime)
 
 void ABeacon_Actor::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (OtherActor->IsA<AAlien_Actor>())
+	if(OtherActor->IsA<AAlien_Actor>())
 	{
 		BeaconHealth--;
+		GEngine->AddOnScreenDebugMessage(0, 1.f, FColor::Emerald, "Beacon minus 1");
 	}
 
 	/*else if(BeaconHealth == 0)

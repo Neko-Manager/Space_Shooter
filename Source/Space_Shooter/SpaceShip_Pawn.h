@@ -102,6 +102,14 @@ public:
 		void Look(const FInputActionValue& Value);
 
 	////////////////////////////////////////////////////////////////////////////////////
+	///Collision control.
+	UFUNCTION()
+		void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+			UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex,
+			bool bFromSweep, const FHitResult& SweepResult);
+
+
+	////////////////////////////////////////////////////////////////////////////////////
 private:
 	//Private variables.
 
@@ -117,8 +125,6 @@ private:
 	UFUNCTION(BlueprintCallable, Category = "Spaceship Reload")
 	void Reload();
 
-	UFUNCTION(BlueprintCallable, Category = "Spaceship PlayerHit")
-	void PlayerHit();
 
 
 
