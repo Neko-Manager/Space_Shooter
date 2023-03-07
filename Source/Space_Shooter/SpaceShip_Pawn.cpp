@@ -11,6 +11,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Components/AudioComponent.h"
 
+
 //Other
 #include "Kismet/GameplayStatics.h"
 #include "Components/BoxComponent.h"
@@ -188,11 +189,19 @@ void ASpaceShip_Pawn::Shoot()
 
 		//If check is yes, then minus one ammo per trigger action to keep the information displayed correct, and removing the infinite ammo.
 		Ammo--;
-		float Radius = 100.f;
-		
+		float relativeDistanceForward = 100.f;
+		float relativeDistanceSide = 100.f;
+		FVector ProjectilePos1 = GetActorLocation() + GetActorForwardVector() * relativeDistanceForward + GetActorRightVector() * relativeDistanceSide;
+		FVector ProjectilePos2 = GetActorLocation() + GetActorForwardVector() * relativeDistanceForward + GetActorRightVector() * -relativeDistanceSide;
+
 		//Need to fix relative spawn for bullets.
-		GetWorld()->SpawnActor<AProjectiles_Actor>(Projectiles_BP, GetActorLocation() + FVector(Radius,0,0), GetActorRotation());
-		GetWorld()->SpawnActor<AProjectiles_Actor>(Projectiles_BP, GetActorLocation() + FVector(-Radius,0,0), GetActorRotation());
+		GetWorld()->SpawnActor<AProjectiles_Actor>(Projectiles_BP, ProjectilePos1, GetActorRotation());
+		GetWorld()->SpawnActor<AProjectiles_Actor>(Projectiles_BP, ProjectilePos2, GetActorRotation());
+
+		
+		/*FVector newLocation = FVector(GetActorLocation().X, GetActorLocation().Y+100, GetActorLocation().Z);
+		GetWorld()->SpawnActor<AProjectiles_Actor>(Projectiles_BP, newLocation, GetActorRotation());
+		GetWorld()->SpawnActor<AProjectiles_Actor>(Projectiles_BP, -newLocation, GetActorRotation());*/
 	}
 }
 

@@ -3,6 +3,7 @@
 
 #include "Projectiles_Actor.h"
 #include "Alien_Actor.h"
+#include "Beacon_Actor.h"
 #include "Components/SphereComponent.h"
 
 // Sets default values
@@ -54,6 +55,11 @@ void AProjectiles_Actor::OnOverlap(UPrimitiveComponent* OverlappedComponent, AAc
 	if(OtherActor->IsA<AAlien_Actor>())
 	{
 		Cast<AAlien_Actor>(OtherActor)->Destroy();
+		DespawnProjectile();
+	}
+
+	else if(OtherActor->IsA<ABeacon_Actor>())
+	{
 		DespawnProjectile();
 	}
 
