@@ -34,7 +34,7 @@ AAlien_Actor::AAlien_Actor()
 	Colision_2->OnComponentBeginOverlap.AddDynamic(this, &AAlien_Actor::OnOverlap);
 
 	Alien = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
-	Alien->SetupAttachment(Alien);
+	Alien->SetupAttachment(Colision_2);
 
 	//Overides Basic mesh and selects a model from the file system
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> Model3D(TEXT("StaticMesh'/Game/Assets/Models/Mesh/Spaceinvader'"));
