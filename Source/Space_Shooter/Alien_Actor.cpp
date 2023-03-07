@@ -45,6 +45,8 @@ AAlien_Actor::AAlien_Actor()
 
 	MovementSpeed = 500.f;
 
+	score = 0;
+
 }
 
 // Called when the game starts or when spawned
@@ -66,6 +68,10 @@ void AAlien_Actor::Tick(float DeltaTime)
 	NewLocation += GetActorForwardVector() * MovementSpeed * DeltaTime;
 	SetActorLocation(NewLocation);
 
+	// Score
+
+	//GEngine->AddOnScreenDebugMessage(1, 1.f, FColor::Black, "score";
+		
 	//Rotate
 	//SetActorRotation(GetActorRotation() + FRotator(0, RotationSpeed, 0));
 
@@ -91,5 +97,7 @@ void AAlien_Actor::DestroyAlien()
 	SetActorHiddenInGame(true);
 	SetActorEnableCollision(false);
 	this->Destroy();
+
+	score += 10;
 }
 
