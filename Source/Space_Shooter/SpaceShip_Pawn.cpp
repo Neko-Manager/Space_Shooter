@@ -84,11 +84,11 @@ ASpaceShip_Pawn::ASpaceShip_Pawn()
 
 	////////////////////////////////////////////////////////////////////////////////////
 	//Setting default values for variables.
-	MaxAmmo = 10;
+	MaxAmmo = 20;
 	Ammo = 20;
 	MovementSpeed =  1000.f;
 	HealthPoints = 5;
-
+	
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
 
 
