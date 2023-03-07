@@ -4,7 +4,6 @@
 #include "Projectiles_Actor.h"
 #include "Alien_Actor.h"
 #include "Beacon_Actor.h"
-#include "SpaceShip_Pawn.h"
 #include "Components/SphereComponent.h"
 
 // Sets default values
@@ -25,8 +24,8 @@ AProjectiles_Actor::AProjectiles_Actor()
 	//Initializing default values for variables.
 	ProjectileDespawnTime = 10.f;
 	ProjectileSpeed = 5000.f;
-
 	score = 0;
+
 }
 
 // Called when the game starts or when spawned
@@ -59,7 +58,7 @@ void AProjectiles_Actor::OnOverlap(UPrimitiveComponent* OverlappedComponent, AAc
 		Cast<AAlien_Actor>(OtherActor)->Destroy();
 		DespawnProjectile();
 		score++;
-		GEngine->AddOnScreenDebugMessage(0, 3.f, FColor::Emerald, "+10 score" + score);
+		GEngine->AddOnScreenDebugMessage(0, 1.f, FColor::Emerald, "Score+10" + score);
 	}
 
 	else if(OtherActor->IsA<ABeacon_Actor>())

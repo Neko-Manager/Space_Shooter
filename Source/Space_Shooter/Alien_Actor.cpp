@@ -3,6 +3,7 @@
 //Our classes
 #include "Alien_Actor.h"
 #include "SpaceShip_Pawn.h"
+#include "Projectiles_Actor.h"
 #include "Beacon_Actor.h"
 
 //Components
@@ -44,13 +45,14 @@ AAlien_Actor::AAlien_Actor()
 	}
 
 	MovementSpeed = 500.f;
-
 }
 
 // Called when the game starts or when spawned
 void AAlien_Actor::BeginPlay()
 {
 	Super::BeginPlay();
+	
+
 
 }
 
@@ -63,9 +65,11 @@ void AAlien_Actor::Tick(float DeltaTime)
 	// Move
 	/*FVector TheBeacon = (Beacon->GetActorLocation());*/
 
+
 	FVector NewLocation = GetActorLocation();
 	NewLocation += GetActorForwardVector() * MovementSpeed * DeltaTime;
 	SetActorLocation(NewLocation);
+
 
 }
 
@@ -88,7 +92,5 @@ void AAlien_Actor::DestroyAlien()
 	SetActorHiddenInGame(true);
 	SetActorEnableCollision(false);
 	this->Destroy();
-
-	
 }
 
