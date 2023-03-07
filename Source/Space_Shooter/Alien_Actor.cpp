@@ -45,7 +45,7 @@ AAlien_Actor::AAlien_Actor()
 
 	MovementSpeed = 500.f;
 
-	score = 0;
+	
 
 }
 
@@ -106,6 +106,6 @@ void AAlien_Actor::DestroyAlien()
 	SetActorEnableCollision(false);
 	this->Destroy();
 
-	score += 10;
+	
 }
 

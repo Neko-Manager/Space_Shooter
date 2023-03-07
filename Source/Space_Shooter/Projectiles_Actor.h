@@ -52,6 +52,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile variable")
 		float ProjectileSpeed;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "My Verriables")
+		int score;
+
 
 	////////////////////////////////////////////////////////////////////////////////////
 private:

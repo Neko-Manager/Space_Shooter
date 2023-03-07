@@ -51,7 +51,6 @@ public:
 		float MovementSpeed;
 
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "My Verriables")
-		int score;
+	
 
 };

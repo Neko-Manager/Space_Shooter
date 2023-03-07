@@ -24,6 +24,7 @@ AProjectiles_Actor::AProjectiles_Actor()
 	//Initializing default values for variables.
 	ProjectileDespawnTime = 10.f;
 	ProjectileSpeed = 5000.f;
+	score = 0;
 
 }
 
@@ -56,6 +57,7 @@ void AProjectiles_Actor::OnOverlap(UPrimitiveComponent* OverlappedComponent, AAc
 	{
 		Cast<AAlien_Actor>(OtherActor)->Destroy();
 		DespawnProjectile();
+		score += 10;
 	}
 
 	else if(OtherActor->IsA<ABeacon_Actor>())
