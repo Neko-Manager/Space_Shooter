@@ -54,6 +54,8 @@ void AAlien_Actor::BeginPlay()
 {
 	Super::BeginPlay();
 	
+
+
 }
 
 // Called every frame

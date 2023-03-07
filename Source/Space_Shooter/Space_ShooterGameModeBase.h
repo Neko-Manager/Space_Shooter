@@ -10,6 +10,7 @@
  * 
  */
 UCLASS()
+
 class SPACE_SHOOTER_API ASpace_ShooterGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
