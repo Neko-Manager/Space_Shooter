@@ -16,14 +16,14 @@ ASpace_ShooterGameModeBase::ASpace_ShooterGameModeBase()
 
 	WaveSpawnFrequency = 1;
 
-	MinX = 2000;
-	MaxX = 4000;
+	MinX = 200;
+	MaxX = 400;
 
-	MinY = 2000;
-	MaxY = 4000;
+	MinY = 200;
+	MaxY = 400;
 	
-	MinZ = 1000;
-	MaxZ = 4000;
+	MinZ = 100;
+	MaxZ = 400;
 
 	GameWon = false;
 

@@ -3,7 +3,6 @@
 //Our classes
 #include "Alien_Actor.h"
 #include "SpaceShip_Pawn.h"
-#include "Projectiles_Actor.h"
 #include "Beacon_Actor.h"
 
 //Components
@@ -45,16 +44,12 @@ AAlien_Actor::AAlien_Actor()
 
 	MovementSpeed = 500.f;
 
-	
-
 }
 
 // Called when the game starts or when spawned
 void AAlien_Actor::BeginPlay()
 {
 	Super::BeginPlay();
-	
-
 
 }
 
@@ -65,22 +60,10 @@ void AAlien_Actor::Tick(float DeltaTime)
 
 
 	// Move
-
+	/*ABeacon_Actor Beacon = <ABeacon_Actor>(this->);*/
 	FVector NewLocation = GetActorLocation();
 	NewLocation += GetActorForwardVector() * MovementSpeed * DeltaTime;
 	SetActorLocation(NewLocation);
-
-	// Score
-
-	//GEngine->AddOnScreenDebugMessage(1, 1.f, FColor::Black, "score";
-		
-	//Rotate
-	//SetActorRotation(GetActorRotation() + FRotator(0, RotationSpeed, 0));
-
-	//SetActorRotation(GetActorRotation() + FRotator(0, 0, 0));
-	//SetActorRotation(FRotator(LookAxisInput.X));
-
-	//Same principle as in Movement, but with 2 vectors.
 
 	GetActorRotation();
 	

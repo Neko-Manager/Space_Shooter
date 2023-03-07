@@ -68,9 +68,5 @@ void ABeacon_Actor::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* 
 		GEngine->AddOnScreenDebugMessage(0, 1.f, FColor::Emerald, "Beacon minus 1");
 	}
 
-	/*else if(BeaconHealth == 0)
-	{
-		
-	}*/
 }
 
