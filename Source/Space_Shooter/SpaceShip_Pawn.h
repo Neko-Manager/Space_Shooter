@@ -52,12 +52,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space ship Variables")
 		float MovementSpeed;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space ship Variables")
-		int HealthPoints;
-
-
-
-
 	////////////////////////////////////////////////////////////////////////////////////
 	//Subclasses (Class of another class)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space ship SubClass")
@@ -102,11 +96,9 @@ public:
 		void Look(const FInputActionValue& Value);
 
 	////////////////////////////////////////////////////////////////////////////////////
-	///Collision control.
-	UFUNCTION()
-		void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-			UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex,
-			bool bFromSweep, const FHitResult& SweepResult);
+	//Collision health variable. Must be accessed in Alien to subtract health.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space ship Variables")
+		int ShipHealth;
 
 
 	////////////////////////////////////////////////////////////////////////////////////

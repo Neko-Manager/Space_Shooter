@@ -86,9 +86,15 @@ void AAlien_Actor::Tick(float DeltaTime)
 
 void AAlien_Actor::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if(OtherActor->IsA<ABeacon_Actor>() || OtherActor->IsA<ASpaceShip_Pawn>())
+	if(OtherActor->IsA<ABeacon_Actor>())
 	{
 		DestroyAlien();
+	}
+	else if(OtherActor->IsA<ASpaceShip_Pawn>())
+	{
+		DestroyAlien();
+		Cast<ASpaceShip_Pawn>(OtherActor)->ShipHealth--;
+		GEngine->AddOnScreenDebugMessage(0, 1.f, FColor::Yellow, "Spaceship health minus 1");
 	}
 }
 
