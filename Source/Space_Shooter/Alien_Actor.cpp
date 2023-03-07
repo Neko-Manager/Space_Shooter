@@ -20,6 +20,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubSystems.h"
 
+class ABeacon_Actor* Beacon;
 
 // Sets default values
 AAlien_Actor::AAlien_Actor()
@@ -60,13 +61,12 @@ void AAlien_Actor::Tick(float DeltaTime)
 
 
 	// Move
-	/*ABeacon_Actor Beacon = <ABeacon_Actor>(this->);*/
+	/*FVector TheBeacon = (Beacon->GetActorLocation());*/
+
 	FVector NewLocation = GetActorLocation();
 	NewLocation += GetActorForwardVector() * MovementSpeed * DeltaTime;
 	SetActorLocation(NewLocation);
 
-	GetActorRotation();
-	
 }
 
 void AAlien_Actor::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
