@@ -36,7 +36,7 @@ ABeacon_Actor::ABeacon_Actor()
 	Beacon->SetupAttachment(Colision_3);
 
 	//Variables
-	BeaconHealth = 100;
+	BeaconHealth = 10;
 }
 
 // Called when the game starts or when spawned
@@ -59,6 +59,7 @@ void ABeacon_Actor::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* 
 	if(OtherActor->IsA<AAlien_Actor>())
 	{
 		BeaconHealth--;
+
 		//GEngine->AddOnScreenDebugMessage(0, 1.f, FColor::Emerald, "Beacon minus 1");
 	}
 

@@ -46,6 +46,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
 		TSubclassOf<class ABeacon_Actor> beaconActor;
 
+
 	// ------------- Collision control --------------
 
 	UFUNCTION()

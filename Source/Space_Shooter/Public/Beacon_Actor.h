@@ -30,6 +30,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space ship Mesh")
 		UStaticMeshComponent* Beacon;
 
+	//Including class and creating a reference
+	UPROPERTY()
+		class ASpaceShip_Pawn* SpaceShip{ nullptr };
+
 	////////////////////////////////////////////////////////////////////////////////////
 	//Collision control.
 	UFUNCTION()
@@ -41,4 +45,6 @@ public:
 	//Variables
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space ship Variables")
 		int BeaconHealth;
+
+
 };

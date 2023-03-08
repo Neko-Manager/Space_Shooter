@@ -6,6 +6,7 @@
 #include "SpaceShip_Pawn.h"
 #include "Projectiles_Actor.h"
 #include "Alien_Actor.h"
+#include "Beacon_Actor.h"
 
 //Audio
 
@@ -31,6 +32,7 @@
 //Initializing Sound Cue and component
 USoundCue* ShootAudioCue;
 UAudioComponent* ShootAudioComponent;
+class ABeacon_Actor;
 
 // Sets default values
 ASpaceShip_Pawn::ASpaceShip_Pawn()
@@ -130,6 +132,9 @@ void ASpaceShip_Pawn::BeginPlay()
 		}
 	}
 
+	auto pawn = GetWorld()->GetFirstPlayerController()->GetPawn();
+	beacon = Cast<ABeacon_Actor>(pawn);
+
 	// ------------- Audio Setup --------------
 
 	//Attatch sound cue to audio component
@@ -152,6 +157,8 @@ void ASpaceShip_Pawn::Tick(float DeltaTime)
 	Timer += DeltaTime;
 	Delay += 5;
 	Reload();
+
+	beacon->BeaconHealth;
 }
 
 // Called to bind functionality to input
