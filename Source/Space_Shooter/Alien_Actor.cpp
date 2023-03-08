@@ -106,13 +106,13 @@ void AAlien_Actor::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* O
 	{
 		DestroyAlien();
 		ship->ShipHealth--;
-		GEngine->AddOnScreenDebugMessage(0, 1.f, FColor::Yellow, "Spaceship health minus 1");
+		//GEngine->AddOnScreenDebugMessage(0, 1.f, FColor::Yellow, "Spaceship health minus 1");
 	}
 	if (OtherActor->IsA<AProjectiles_Actor>())
 	{
 		DestroyAlien();
 		ship->Score++;
-		GEngine->AddOnScreenDebugMessage(0, 1.f, FColor::Yellow, "Alien destroyed");
+		//GEngine->AddOnScreenDebugMessage(0, 1.f, FColor::Yellow, "Alien destroyed");
 	}
 
 }
