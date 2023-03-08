@@ -49,9 +49,13 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space ship Variables")
 		float RelativeDistanceSide;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space ship Variables")
+		int Score;
+
 	//Collision health variable. Must be accessed in Alien to subtract health.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space ship Variables")
 		int ShipHealth;
+
 
 
 	// ------------- Components --------------

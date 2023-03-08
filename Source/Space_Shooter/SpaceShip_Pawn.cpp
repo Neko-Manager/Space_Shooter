@@ -72,6 +72,7 @@ ASpaceShip_Pawn::ASpaceShip_Pawn()
 	ShipHealth = 5;
 	RelativeDistanceForward = 100.f,
 	RelativeDistanceSide = 100.f;
+	Score = 0;
 	
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
 

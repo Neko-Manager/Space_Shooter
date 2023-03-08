@@ -23,6 +23,7 @@
 #include "EnhancedInputSubSystems.h"
 
 class ABeacon_Actor;
+class ASpaceShip_Pawn;
 
 // Sets default values
 AAlien_Actor::AAlien_Actor()
@@ -61,6 +62,11 @@ void AAlien_Actor::BeginPlay()
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), beaconActor, beacons);
 	//Setting class reference to Cast. This points to the ABeacon_Actors` element.
 	beacon = Cast<ABeacon_Actor>(beacons[0]);
+
+
+	auto pawn = GetWorld()->GetFirstPlayerController()->GetPawn();
+	ship = Cast<ASpaceShip_Pawn>(pawn);
+
 }
 
 // Called every frame
@@ -73,7 +79,6 @@ void AAlien_Actor::Tick(float DeltaTime)
 	FVector Origo = FVector(0.f, 0.f, 0.f);
 	//Creating an if-guard; checks if Beacon location is a nullptr or defined FVector.
 	if (beacon) Origo = beacon->GetActorLocation();
-	
 	
 	//Find Vector between alien and Beacon
 	FVector AB = FVector(Origo.X - GetActorLocation().X, Origo.Y - GetActorLocation().Y, Origo.Z - GetActorLocation().Z);
@@ -106,6 +111,7 @@ void AAlien_Actor::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* O
 	if (OtherActor->IsA<AProjectiles_Actor>())
 	{
 		DestroyAlien();
+		ship->Score++;
 		GEngine->AddOnScreenDebugMessage(0, 1.f, FColor::Yellow, "Alien destroyed");
 	}
 

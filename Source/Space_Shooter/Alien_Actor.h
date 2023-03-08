@@ -21,6 +21,11 @@ protected:
 	UPROPERTY()
 	class ABeacon_Actor* beacon{nullptr};
 
+	//Including class and creating a reference
+	UPROPERTY()
+	class ASpaceShip_Pawn* ship{ nullptr };
+
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
