@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -23,7 +21,7 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	//Main collection for Alien
+	// ------------- Components --------------
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Alien component")
 		class UBoxComponent* Colision_2{ nullptr };
@@ -31,21 +29,19 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Alien component")
 		UStaticMeshComponent* Alien;
 
-	////////////////////////////////////////////////////////////////////////////////////
-	//Collision control.
+	// ------------- Collision control --------------
+
 	UFUNCTION()
 		void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 			UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex,
 			bool bFromSweep, const FHitResult& SweepResult);
 	
-	////////////////////////////////////////////////////////////////////////////////////
-	//Functions.
+	// ------------- Functoins --------------
 	
 	UFUNCTION()
 		void DestroyAlien();
 
-	////////////////////////////////////////////////////////////////////////////////////
-	//Variables.
+	// ------------- Verriables --------------
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "My Verriables")
 		float MovementSpeed;

@@ -5,10 +5,12 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "InputActionValue.h"
+#include "Components/AudioComponent.h"
 #include "SpaceShip_Pawn.generated.h"
 
 //Calling Projectiles class.
 class AProjectiles_Actor;
+class USoundCue;
 
 UCLASS()
 class SPACE_SHOOTER_API ASpaceShip_Pawn : public APawn
@@ -30,19 +32,8 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	//Main collection for SpaceShip mesh.
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space ship Mesh")
-		UStaticMeshComponent* Space_Ship;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space ship Mesh")
-		class UCameraComponent* Camera;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space ship Mesh")
-		class USpringArmComponent* SpringArm;
-
-
-	////////////////////////////////////////////////////////////////////////////////////
-	//Main collection for variables.
+	// ------------- Verriables --------------
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space ship Variables")
 		int Ammo;
 
@@ -58,26 +49,38 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space ship Variables")
 		float RelativeDistanceSide;
 
+	//Collision health variable. Must be accessed in Alien to subtract health.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space ship Variables")
+		int ShipHealth;
 
-	////////////////////////////////////////////////////////////////////////////////////
+	// ------------- Components --------------
+
+	//Main collection for SpaceShip mesh.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space ship Mesh")
+		UStaticMeshComponent* Space_Ship;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space ship Mesh")
+		class UCameraComponent* Camera;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space ship Mesh")
+		class USpringArmComponent* SpringArm;
+
+	
 	//Subclasses (Class of another class)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space ship SubClass")
 		TSubclassOf<AProjectiles_Actor> Projectiles_BP;
 
-
-	////////////////////////////////////////////////////////////////////////////////////
-	//Sound
+		//Audio Components
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space Ship Sound")
-		USoundBase* ReloadSound;
+		USoundCue* ReloadSoundCue;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space Ship Sound")
-		USoundBase* ShootingSound;
+		USoundCue* ShootingSoundCue;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space Ship Sound")
-		USoundBase* AmmoEmptySound;
+		USoundCue* AmmoEmptySoundCue;
 
-	////////////////////////////////////////////////////////////////////////////////////
-	//Input Controller to define InputAction.
+	//Innput Components
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inputsystem")
 		class UInputMappingContext* IMC;
 
@@ -93,8 +96,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inputsystem Reload")
 		class UInputAction* IA_Reload;
 
+	// ------------- Functions --------------
 
-	////////////////////////////////////////////////////////////////////////////////////
 	//Movement and vision to declare what will happen if the Triggered InputAction is met.
 	UFUNCTION(BlueprintCallable, Category = "Spaceship Movement")
 		void Movement(const FInputActionValue& Value);
@@ -102,19 +105,19 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Spaceship Look")
 		void Look(const FInputActionValue& Value);
 
-	////////////////////////////////////////////////////////////////////////////////////
-	//Collision health variable. Must be accessed in Alien to subtract health.
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space ship Variables")
-		int ShipHealth;
 
-	////////////////////////////////////////////////////////////////////////////////////
 private:
-	//Private variables.
+	
+	// ------------- Private Verriables --------------
+
+	UAudioComponent* ShootAudioComponent;
+
+	UAudioComponent* ReloadAudioComponent;
+
+	UAudioComponent* EmptyShotAudioComponent;
 
 
-	////////////////////////////////////////////////////////////////////////////////////
-private:
-	//Private functions for control.
+	// ------------- Private Functions --------------
 
 	//Private functions for variable management.
 	UFUNCTION(BlueprintCallable, Category = "Spaceship Look")

@@ -1,9 +1,14 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+// ------------- Includes --------------
+
 //Our classes
 #include "SpaceShip_Pawn.h"
 #include "Projectiles_Actor.h"
 #include "Alien_Actor.h"
+
+//Audio
+
 
 //Components
 #include "Components/StaticMeshComponent.h"
@@ -33,34 +38,11 @@ ASpaceShip_Pawn::ASpaceShip_Pawn()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	// ------------- Initializations --------------
 
-	
-	static ConstructorHelpers::FObjectFinder<USoundCue> propellerCue(TEXT("'/Game/Audio/Shoot_SW'"));
-
-	//Storing the aduio cue
-	//ShootAudioCue = ShootAudioCue.Object;
-
-	//Create the audio component
-	ShootAudioComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("PropellerAudioComp"));
-
-	// Attach our sound cue to the SoundComponent
-	if (ShootAudioCue->IsValidLowLevelFast()) 
-	{
-		ShootAudioComponent->SetSound(ShootAudioCue);
-	}
-
-
-	//Initializing the Space Ship. -> /*Abstract*/
+	//Initializing the Space Ship
 	Space_Ship = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Space ship"));
 	SetRootComponent(Space_Ship);
-
-	// I don't want the sound playing the moment it's created.
-	ShootAudioComponent->bAutoActivate = false;
-	// I want the sound to follow the pawn around, so I attach it to the Pawns root.
-	ShootAudioComponent->SetupAttachment(Space_Ship);
-	// I want the sound to come from slighty in front of the pawn.
-	ShootAudioComponent->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
-
 
 	//Initializing the spring arm.
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Spring Arm"));
@@ -83,7 +65,6 @@ ASpaceShip_Pawn::ASpaceShip_Pawn()
 		Space_Ship->SetStaticMesh(Model3D.Object);
 	}
 
-	////////////////////////////////////////////////////////////////////////////////////
 	//Setting default values for variables.
 	MaxAmmo = 20;
 	Ammo = 20;
@@ -94,6 +75,34 @@ ASpaceShip_Pawn::ASpaceShip_Pawn()
 	
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
 
+
+	//---------------- Audio ----------------- 
+
+	//Loads soundque object
+	static ConstructorHelpers::FObjectFinder<USoundCue> ShootSoundCueObject(TEXT("/Script/Engine.SoundCue'/Game/Audio/SoundCues/Shoot_SQ.Shoot_SQ'"));
+	static ConstructorHelpers::FObjectFinder<USoundCue> ReloadSoundCueObject(TEXT("/Script/Engine.SoundCue'/Game/Audio/SoundCues/Reload_AQ.Reload_AQ'"));
+	static ConstructorHelpers::FObjectFinder<USoundCue> AmmoEmptySoundCueObject(TEXT("/Script/Engine.SoundCue'/Game/Audio/SoundCues/AmmoEmptyShoot_AQ.AmmoEmptyShoot_AQ'"));
+
+	//Checks if loading worked	
+	if (ShootSoundCueObject.Succeeded()) {
+		ShootingSoundCue = ShootSoundCueObject.Object;
+		//initialize audio component
+		ShootAudioComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("ShootAudioComponent"));
+		//Attatch to root component
+		ShootAudioComponent->SetupAttachment(RootComponent);
+		}
+
+	if (ReloadSoundCueObject.Succeeded()) {
+		ReloadSoundCue = ReloadSoundCueObject.Object;
+		ReloadAudioComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("ReloadAudioComponent"));
+		ReloadAudioComponent->SetupAttachment(RootComponent);
+	}
+
+	if (AmmoEmptySoundCueObject.Succeeded()) {
+		AmmoEmptySoundCue = AmmoEmptySoundCueObject.Object;
+		EmptyShotAudioComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("EmptyShotAudioComponent"));
+		EmptyShotAudioComponent->SetupAttachment(RootComponent);
+	}
 }   
 
 
@@ -101,6 +110,8 @@ ASpaceShip_Pawn::ASpaceShip_Pawn()
 void ASpaceShip_Pawn::BeginPlay()
 {
 	Super::BeginPlay();
+
+	// ------------- Begin Play Controller Setup --------------
 
 	//Getting the player controller with Cast.
 	APlayerController* PlayerController = Cast<APlayerController>(GetController());
@@ -116,8 +127,20 @@ void ASpaceShip_Pawn::BeginPlay()
 		{
 			Subsystem->AddMappingContext(IMC, 0);
 		}
-
 	}
+
+	// ------------- Audio Setup --------------
+
+	//Attatch sound cue to audio component
+	if (ShootAudioComponent && ShootingSoundCue)
+		ShootAudioComponent->SetSound(ShootingSoundCue);
+
+	if (ReloadAudioComponent && ReloadSoundCue)
+		ReloadAudioComponent->SetSound(ReloadSoundCue);
+
+	if (EmptyShotAudioComponent && AmmoEmptySoundCue)
+		EmptyShotAudioComponent->SetSound(AmmoEmptySoundCue);
+
 }
 
 // Called every frame
@@ -146,6 +169,8 @@ void ASpaceShip_Pawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 
 void ASpaceShip_Pawn::Movement(const FInputActionValue& Value)
 {
+	// ------------- Movement For player Ship --------------
+	
 	//Checking i the controller is not a NullPointer and a Controller.
 	if (Controller && Value.IsNonZero()) 
 	{
@@ -166,6 +191,8 @@ void ASpaceShip_Pawn::Movement(const FInputActionValue& Value)
 
 void ASpaceShip_Pawn::Look(const FInputActionValue& Value)
 {
+	// ------------- Mouse Direction Controll for player Ship --------------
+
 	//Checking if the controller is received.
 	if (GetController()) 
 	{
@@ -176,17 +203,22 @@ void ASpaceShip_Pawn::Look(const FInputActionValue& Value)
 		AddControllerYawInput(LookAxisInput.X);
 		AddControllerPitchInput(LookAxisInput.Y);
 	}
-
 }
-
 
 void ASpaceShip_Pawn::Shoot()
 {
+	// ------------- Player Shooting --------------
+	
+	//Play Audio when Shooting
+	if (ShootAudioComponent && ShootingSoundCue && Ammo >= 0)
+		ShootAudioComponent->Play(0.f);
+
 	//Checking if ammo is greater than zero.
 	if(Ammo > 0)
 	{
 		//play Audio
-		ShootAudioComponent->Play();
+		if (EmptyShotAudioComponent && AmmoEmptySoundCue)
+			EmptyShotAudioComponent->Play();
 
 		//If check is yes, then minus one ammo per trigger action to keep the information displayed correct, and removing the infinite ammo.
 		Ammo--;
@@ -203,7 +235,13 @@ void ASpaceShip_Pawn::Shoot()
 
 void ASpaceShip_Pawn::Reload()
 {
-	//Reloads ammo to max.
+	// ------------- Player Reloading --------------
+
+		//play Audio
+	if (ReloadAudioComponent && ReloadSoundCue)
+		ReloadAudioComponent->Play();
+
+	//Reloads ammo to max ammo
 	Ammo = MaxAmmo;
 }
 

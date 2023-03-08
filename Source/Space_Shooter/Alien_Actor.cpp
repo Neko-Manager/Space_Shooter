@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// ------------- Includes --------------
 
 //Our classes
 #include "Alien_Actor.h"
@@ -21,11 +21,13 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubSystems.h"
 
-class ABeacon_Actor* Beacon;
+class ABeacon_Actor;
 
 // Sets default values
 AAlien_Actor::AAlien_Actor()
 {
+	// ------------- Initializations --------------
+	
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
@@ -52,8 +54,6 @@ void AAlien_Actor::BeginPlay()
 {
 	Super::BeginPlay();
 	
-
-
 }
 
 // Called every frame
@@ -61,20 +61,28 @@ void AAlien_Actor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	// ------------- Move Toward Beacon --------------
+	//Gets Beacon position
+	FVector Origo = FVector(0.f, 0.f, 0.f);
 
-	// Move
-	/*FVector TheBeacon = (Beacon->GetActorLocation());*/
+	//Find Vector between alien and Beacon
+	FVector AB = FVector(Origo.X - GetActorLocation().X, Origo.Y - GetActorLocation().Y, Origo.Z - GetActorLocation().Z);
 
+	//Normalize Vector to a value of 1 and inverse it
+	AB.Normalize();
 
+	//Gets Current Location
 	FVector NewLocation = GetActorLocation();
-	NewLocation += GetActorForwardVector() * MovementSpeed * DeltaTime;
+
+	//Moves current location along Vector betwen current location and Beacon
+	NewLocation += AB * MovementSpeed * DeltaTime;
 	SetActorLocation(NewLocation);
-
-
 }
 
 void AAlien_Actor::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
+	// ------------- Collision Logic --------------
+
 	if(OtherActor->IsA<ABeacon_Actor>())
 	{
 		DestroyAlien();
@@ -89,6 +97,8 @@ void AAlien_Actor::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* O
 
 void AAlien_Actor::DestroyAlien()
 {
+	// ------------- Destroy Alien --------------
+
 	SetActorHiddenInGame(true);
 	SetActorEnableCollision(false);
 	this->Destroy();

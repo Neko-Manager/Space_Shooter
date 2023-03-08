@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -7,6 +5,7 @@
 #include "Alien_Actor.h"
 #include "Space_ShooterGameModeBase.generated.h"
 
+//Forward decleared Alien Actor
 class AAlien_Actor;
 
 UCLASS()
@@ -25,43 +24,51 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	//Location constants
+
+	// ------------- Verriables --------------
+
 	// -------- X Axis -------
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "My Variables")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "1-SpawnPositions")
 		float MinX;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "My Variables")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "1-SpawnPositions")
 		float MaxX;
 
 	// -------- Y Axis -------
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "My Variables")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "1-SpawnPositions")
 		float MinY;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "My Variables")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "1-SpawnPositions")
 		float MaxY;
 
 	// -------- Z Axis -------
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "My Variables")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "1-SpawnPositions")
 		float MinZ;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "My Variables")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "1-SpawnPositions")
 		float MaxZ;
 
-	//Game constants
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "My Variables")
+	// Game constants
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "2-WaveConsts")
 		int CurrentWave;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "My Variables")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "2-WaveConsts")
 		int MaxWaves;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "My Variables")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "2-WaveConsts")
+		int LeftToSpawn;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "2-WaveConsts")
 		int WaveSize;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "My Variables")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "2-WaveConsts")
 		int WaveSpawnFrequency;
 
 	//Sets Alien as blueprint value
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "My Variables")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "2-WaveConsts")
 		TSubclassOf<AAlien_Actor> AAlien_Actor_BP;
+
+	// ------------- Private Verriables --------------
 
 private:
 	int AliensToSpawn;
 	float clock;
 	bool GameWon;
+
+	// ------------- Private Functions --------------
 
 	void ChangeWave(int wave);
 
