@@ -93,8 +93,13 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inputsystem Shoot")
 		class UInputAction* IA_Shoot;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inputsystem Beam")
+		class UInputAction* IA_Beam;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inputsystem Reload")
 		class UInputAction* IA_Reload;
+
+
 
 	// ------------- Functions --------------
 

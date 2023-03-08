@@ -162,6 +162,7 @@ void ASpaceShip_Pawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 		EnhancedInputComponent->BindAction(IA_Move, ETriggerEvent::Triggered, this, &ASpaceShip_Pawn::Movement);
 		EnhancedInputComponent->BindAction(IA_Look,ETriggerEvent::Triggered, this, &ASpaceShip_Pawn::Look);
 		EnhancedInputComponent->BindAction(IA_Shoot, ETriggerEvent::Triggered, this, &ASpaceShip_Pawn::Shoot);
+		EnhancedInputComponent->BindAction(IA_Beam, ETriggerEvent::Triggered, this, &ASpaceShip_Pawn::Shoot);
 		EnhancedInputComponent->BindAction(IA_Reload, ETriggerEvent::Triggered, this, &ASpaceShip_Pawn::Reload);
 
 	}
