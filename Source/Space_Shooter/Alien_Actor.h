@@ -17,6 +17,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	//Including class and creating a reference
 	UPROPERTY()
 	class ABeacon_Actor* beacon{nullptr};
 
@@ -31,6 +32,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Alien component")
 		UStaticMeshComponent* Alien;
+
+	// ------------- Tsubclass of Beacon reference --------------
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
 		TSubclassOf<class ABeacon_Actor> beaconActor;
