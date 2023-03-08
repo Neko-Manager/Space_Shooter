@@ -16,6 +16,7 @@
 #include "Components/BoxComponent.h"
 #include "Engine/World.h"
 #include "Blueprint/UserWidget.h"
+#include "Kismet/GameplayStatics.h"
 
 //Inputs
 #include "EnhancedInputComponent.h"
@@ -53,7 +54,9 @@ AAlien_Actor::AAlien_Actor()
 void AAlien_Actor::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	TArray<AActor*> beacons;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), beaconActor, beacons);
+	beacon = Cast<ABeacon_Actor>(beacons[0]);
 }
 
 // Called every frame
@@ -64,7 +67,10 @@ void AAlien_Actor::Tick(float DeltaTime)
 	// ------------- Move Toward Beacon --------------
 	//Gets Beacon position
 	FVector Origo = FVector(0.f, 0.f, 0.f);
-
+	//Creating an if-guard
+	if (beacon) Origo = beacon->GetActorLocation();
+	
+	
 	//Find Vector between alien and Beacon
 	FVector AB = FVector(Origo.X - GetActorLocation().X, Origo.Y - GetActorLocation().Y, Origo.Z - GetActorLocation().Z);
 
