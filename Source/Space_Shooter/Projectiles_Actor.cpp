@@ -5,6 +5,7 @@
 #include "Alien_Actor.h"
 #include "Beacon_Actor.h"
 #include "SpaceShip_Pawn.h"
+#include "Components/StaticMeshComponent.h"
 #include "Components/SphereComponent.h"
 
 
@@ -26,7 +27,13 @@ AProjectiles_Actor::AProjectiles_Actor()
 	////////////////////////////////////////////////////////////////////////////////////
 	//Initializing default values for variables.
 	ProjectileDespawnTime = 10.f;
-	ProjectileSpeed = 5000.f;
+	ProjectileSpeed = 8000.f;
+
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> Model3D(TEXT("/Script/Engine.Blueprint'/Game/Blueprints/Projectiles_Actor_BP.Projectiles_Actor_BP'"));
+
+	if (Model3D.Succeeded()) {
+		Projectile->SetStaticMesh(Model3D.Object);
+	}
 
 }
 
