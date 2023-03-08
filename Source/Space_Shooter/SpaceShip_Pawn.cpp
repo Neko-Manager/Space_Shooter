@@ -75,6 +75,7 @@ ASpaceShip_Pawn::ASpaceShip_Pawn()
 	RelativeDistanceForward = 100.f,
 	RelativeDistanceSide = 100.f;
 	Score = 0;
+	
 
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
 
@@ -147,15 +148,25 @@ void ASpaceShip_Pawn::BeginPlay()
 	if (EmptyShotAudioComponent && AmmoEmptySoundCue)
 		EmptyShotAudioComponent->SetSound(AmmoEmptySoundCue);
 
+
 }
 
 // Called every frame
 void ASpaceShip_Pawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	Timer = DeltaTime;
+
 	Timer += DeltaTime;
-	Delay += 5;
+	Delay = 3.f;
+	Counter +=DeltaTime;
+	TimeToReload = FString();
+
+	for (Counter; Counter >= Delay; Delay++) 
+	{
+		
+		TimeToReload = FString("Reload Ready");
+		Counter = 0.f;
+	}
 
 	beacon->BeaconHealth;
 }
@@ -254,7 +265,11 @@ void ASpaceShip_Pawn::Reload()
 		ReloadAudioComponent->Play();
 
 	//Reloads ammo to max ammo
+	if (Timer > Delay)
+	{
 		Ammo = MaxAmmo;
+		Timer = 0.f;
+	}
 }
 
 
