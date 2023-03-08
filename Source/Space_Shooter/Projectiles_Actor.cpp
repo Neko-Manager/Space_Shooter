@@ -29,7 +29,7 @@ AProjectiles_Actor::AProjectiles_Actor()
 	ProjectileDespawnTime = 10.f;
 	ProjectileSpeed = 8000.f;
 
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> Model3D(TEXT("/Script/Engine.Blueprint'/Game/Blueprints/Projectiles_Actor_BP.Projectiles_Actor_BP'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> Model3D(TEXT("/Script/Engine.Blueprint'/Game/Blueprints/Projectiles_Actor_BP'"));
 
 	if (Model3D.Succeeded()) {
 		Projectile->SetStaticMesh(Model3D.Object);
