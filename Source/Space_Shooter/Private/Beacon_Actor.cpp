@@ -32,16 +32,8 @@ ABeacon_Actor::ABeacon_Actor()
 	Colision_3->InitCapsuleSize(150,300);
 	Colision_3->OnComponentBeginOverlap.AddDynamic(this, &ABeacon_Actor::OnOverlap);
 
-
 	Beacon = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Beacon"));
 	Beacon->SetupAttachment(Colision_3);
-
-	//Overides Basic mesh and selects a model from the file system
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> Model3D(TEXT("/Script/CoreUObject.Class'/Script/Space_Shooter.Beacon_Actor'"));
-
-	if (Model3D.Succeeded()) {
-		Beacon->SetStaticMesh(Model3D.Object);
-	}
 
 	//Variables
 	BeaconHealth = 100;

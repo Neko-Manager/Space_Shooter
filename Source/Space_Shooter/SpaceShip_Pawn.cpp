@@ -69,7 +69,7 @@ ASpaceShip_Pawn::ASpaceShip_Pawn()
 	MaxAmmo = 20;
 	Ammo = 20;
 	MovementSpeed =  1000.f;
-	ShipHealth = 1;
+	ShipHealth = 5;
 	RelativeDistanceForward = 100.f,
 	RelativeDistanceSide = 100.f;
 	Score = 0;
