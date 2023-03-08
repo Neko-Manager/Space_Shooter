@@ -17,6 +17,9 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UPROPERTY()
+	class ABeacon_Actor* beacon{nullptr};
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -28,6 +31,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Alien component")
 		UStaticMeshComponent* Alien;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
+		TSubclassOf<class ABeacon_Actor> beaconActor;
 
 	// ------------- Collision control --------------
 
