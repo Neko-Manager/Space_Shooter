@@ -26,6 +26,7 @@ ABeacon_Actor::ABeacon_Actor()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	// ------------- Initializing and activating all class meshes and variables --------------
 	Colision_3 = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Collider"));
 	SetRootComponent(Colision_3);
 	Colision_3->InitCapsuleSize(150,300);
@@ -62,10 +63,11 @@ void ABeacon_Actor::Tick(float DeltaTime)
 
 void ABeacon_Actor::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
+	// ------------- Collision between Beacon and other classes --------------
 	if(OtherActor->IsA<AAlien_Actor>())
 	{
 		BeaconHealth--;
-		GEngine->AddOnScreenDebugMessage(0, 1.f, FColor::Emerald, "Beacon minus 1");
+		//GEngine->AddOnScreenDebugMessage(0, 1.f, FColor::Emerald, "Beacon minus 1");
 	}
 
 }

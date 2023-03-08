@@ -155,6 +155,7 @@ void ASpaceShip_Pawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	// ------------- Input components for Spaceship actions --------------
 	//Checking if the playerInputComponent is true/ a PLayerInput or not. If yes, then we allow the action binding to succeed.
 	if(UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(PlayerInputComponent))
 	{
@@ -191,7 +192,7 @@ void ASpaceShip_Pawn::Movement(const FInputActionValue& Value)
 
 void ASpaceShip_Pawn::Look(const FInputActionValue& Value)
 {
-	// ------------- Mouse Direction Controll for player Ship --------------
+	// ------------- Mouse Direction Control for player Ship --------------
 
 	//Checking if the controller is received.
 	if (GetController()) 
