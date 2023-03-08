@@ -150,7 +150,8 @@ void ASpaceShip_Pawn::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	Timer = DeltaTime;
 	Timer += DeltaTime;
-	Delay = 10;
+	Delay += 5;
+	Reload();
 }
 
 // Called to bind functionality to input
@@ -247,7 +248,7 @@ void ASpaceShip_Pawn::Reload()
 		ReloadAudioComponent->Play();
 
 	//Reloads ammo to max ammo
-	if (Delay < Timer) 
+	if (Delay == Timer) 
 	{
 		Ammo = MaxAmmo;
 	}
