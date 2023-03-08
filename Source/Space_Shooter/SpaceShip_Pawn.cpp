@@ -69,11 +69,11 @@ ASpaceShip_Pawn::ASpaceShip_Pawn()
 	MaxAmmo = 20;
 	Ammo = 20;
 	MovementSpeed =  1000.f;
-	ShipHealth = 5;
+	ShipHealth = 1;
 	RelativeDistanceForward = 100.f,
 	RelativeDistanceSide = 100.f;
 	Score = 0;
-	
+
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
 
 
@@ -148,14 +148,9 @@ void ASpaceShip_Pawn::BeginPlay()
 void ASpaceShip_Pawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	/*float NewTime = DeltaTime;
-	NewTime += DeltaTime;
-	if(NewTime > 10)
-	{
-		Reload();
-	}*/
-	
-
+	Timer = DeltaTime;
+	Timer += DeltaTime;
+	Delay = 10;
 }
 
 // Called to bind functionality to input
@@ -252,8 +247,10 @@ void ASpaceShip_Pawn::Reload()
 		ReloadAudioComponent->Play();
 
 	//Reloads ammo to max ammo
-	Ammo = MaxAmmo;
-	
+	if (Delay < Timer) 
+	{
+		Ammo = MaxAmmo;
+	}
 }
 
 
