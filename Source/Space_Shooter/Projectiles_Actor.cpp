@@ -4,7 +4,9 @@
 #include "Projectiles_Actor.h"
 #include "Alien_Actor.h"
 #include "Beacon_Actor.h"
+#include "SpaceShip_Pawn.h"
 #include "Components/SphereComponent.h"
+
 
 // Sets default values
 AProjectiles_Actor::AProjectiles_Actor()
@@ -58,6 +60,7 @@ void AProjectiles_Actor::OnOverlap(UPrimitiveComponent* OverlappedComponent, AAc
 	// ------------- Collision between Projectile and other classes --------------
 	if(OtherActor->IsA<AAlien_Actor>())
 	{
+		//Cast<ASpaceShip_Pawn>(OtherActor)->score += 10;
 		Cast<AAlien_Actor>(OtherActor)->Destroy();
 		DespawnProjectile();
 		score++;
