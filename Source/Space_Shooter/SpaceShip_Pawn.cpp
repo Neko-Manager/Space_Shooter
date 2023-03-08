@@ -156,7 +156,6 @@ void ASpaceShip_Pawn::Tick(float DeltaTime)
 	Timer = DeltaTime;
 	Timer += DeltaTime;
 	Delay += 5;
-	Reload();
 
 	beacon->BeaconHealth;
 }
@@ -255,10 +254,7 @@ void ASpaceShip_Pawn::Reload()
 		ReloadAudioComponent->Play();
 
 	//Reloads ammo to max ammo
-	if (Delay == Timer) 
-	{
 		Ammo = MaxAmmo;
-	}
 }
 
 
