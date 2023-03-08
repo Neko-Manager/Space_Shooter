@@ -42,7 +42,7 @@ AAlien_Actor::AAlien_Actor()
 	Alien->SetupAttachment(Colision_2);
 
 	//Overides Basic mesh and selects a model from the file system
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> Model3D(TEXT("StaticMesh'/Game/Assets/Models/Mesh/Spaceinvader'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> Model3D(TEXT("StaticMesh'/Game/Assets/Models/Mesh/Spaceinvader.Spaceinvader'"));
 
 	if (Model3D.Succeeded()) {
 		Alien->SetStaticMesh(Model3D.Object);

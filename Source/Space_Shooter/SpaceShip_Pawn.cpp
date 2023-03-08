@@ -60,7 +60,7 @@ ASpaceShip_Pawn::ASpaceShip_Pawn()
 	Camera->SetupAttachment(SpringArm, USpringArmComponent::SocketName);
 
 	//Overides Basic mesh and selects a model from the file system
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> Model3D(TEXT("StaticMesh'/Game/Assets/Models/Mesh/PlayerShip'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> Model3D(TEXT("StaticMesh'/Game/Assets/Models/Mesh/PlayerShip.PlayerShip'"));
 
 
 	if (Model3D.Succeeded()) {
