@@ -106,8 +106,7 @@ void AAlien_Actor::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* O
 	if (OtherActor->IsA<AProjectiles_Actor>())
 	{
 		DestroyAlien();
-		Cast<AProjectiles_Actor>(OtherActor)->score++;
-		GEngine->AddOnScreenDebugMessage(0, 1.f, FColor::Yellow, "Score+1");
+		GEngine->AddOnScreenDebugMessage(0, 1.f, FColor::Yellow, "Alien destroyed");
 	}
 
 }
