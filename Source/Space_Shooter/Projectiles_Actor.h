@@ -54,6 +54,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "My Verriables")
 		int score;
+	
 
 
 	////////////////////////////////////////////////////////////////////////////////////

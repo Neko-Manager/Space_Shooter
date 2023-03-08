@@ -97,12 +97,19 @@ void AAlien_Actor::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* O
 	{
 		DestroyAlien();
 	}
-	else if(OtherActor->IsA<ASpaceShip_Pawn>())
+	if(OtherActor->IsA<ASpaceShip_Pawn>())
 	{
 		DestroyAlien();
 		Cast<ASpaceShip_Pawn>(OtherActor)->ShipHealth--;
 		//GEngine->AddOnScreenDebugMessage(0, 1.f, FColor::Yellow, "Spaceship health minus 1");
 	}
+	if (OtherActor->IsA<AProjectiles_Actor>())
+	{
+		DestroyAlien();
+		Cast<AProjectiles_Actor>(OtherActor)->score++;
+		GEngine->AddOnScreenDebugMessage(0, 1.f, FColor::Yellow, "Score+1");
+	}
+
 }
 
 void AAlien_Actor::DestroyAlien()

@@ -58,16 +58,8 @@ void AProjectiles_Actor::Tick(float DeltaTime)
 void AProjectiles_Actor::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	// ------------- Collision between Projectile and other classes --------------
-	if(OtherActor->IsA<AAlien_Actor>())
-	{
-		//Cast<ASpaceShip_Pawn>(OtherActor)->score += 10;
-		Cast<AAlien_Actor>(OtherActor)->Destroy();
-		DespawnProjectile();
-		score++;
-		/*GEngine->AddOnScreenDebugMessage(0, 1.f, FColor::Emerald, "Score+10" + score);*/
-	}
 
-	else if(OtherActor->IsA<ABeacon_Actor>())
+	if(OtherActor->IsA<ABeacon_Actor>())
 	{
 		DespawnProjectile();
 	}
