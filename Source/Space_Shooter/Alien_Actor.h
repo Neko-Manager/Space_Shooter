@@ -26,6 +26,9 @@ protected:
 	class ASpaceShip_Pawn* ship{ nullptr };
 
 
+
+
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
