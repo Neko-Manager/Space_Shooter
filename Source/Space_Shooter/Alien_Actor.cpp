@@ -54,8 +54,12 @@ AAlien_Actor::AAlien_Actor()
 void AAlien_Actor::BeginPlay()
 {
 	Super::BeginPlay();
+
+	//Creating a TArray for all actors referenced as beacons.
 	TArray<AActor*> beacons;
+	//Collecting all ActorOfClass of a defined class in world-->Beacon and sorting the class elements in respective TArray.
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), beaconActor, beacons);
+	//Setting class reference to Cast. This points to the ABeacon_Actors` element.
 	beacon = Cast<ABeacon_Actor>(beacons[0]);
 }
 
@@ -67,7 +71,7 @@ void AAlien_Actor::Tick(float DeltaTime)
 	// ------------- Move Toward Beacon --------------
 	//Gets Beacon position
 	FVector Origo = FVector(0.f, 0.f, 0.f);
-	//Creating an if-guard
+	//Creating an if-guard; checks if Beacon location is a nullptr or defined FVector.
 	if (beacon) Origo = beacon->GetActorLocation();
 	
 	
