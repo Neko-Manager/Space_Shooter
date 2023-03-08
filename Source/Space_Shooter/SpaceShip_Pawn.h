@@ -53,6 +53,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space ship Variables")
 		int ShipHealth;
 
+
 	// ------------- Components --------------
 
 	//Main collection for SpaceShip mesh.
@@ -130,6 +131,8 @@ private:
 
 	UFUNCTION(BlueprintCallable, Category = "Spaceship Reload")
 	void Reload();
+
+
 
 
 

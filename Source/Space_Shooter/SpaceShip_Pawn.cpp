@@ -147,6 +147,13 @@ void ASpaceShip_Pawn::BeginPlay()
 void ASpaceShip_Pawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	/*float NewTime = DeltaTime;
+	NewTime += DeltaTime;
+	if(NewTime > 10)
+	{
+		Reload();
+	}*/
+	
 
 }
 
@@ -245,6 +252,7 @@ void ASpaceShip_Pawn::Reload()
 
 	//Reloads ammo to max ammo
 	Ammo = MaxAmmo;
+	
 }
 
 
