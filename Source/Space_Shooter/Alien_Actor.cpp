@@ -63,7 +63,7 @@ void AAlien_Actor::BeginPlay()
 	//Setting class reference to Cast. This points to the ABeacon_Actors` element.
 	beacon = Cast<ABeacon_Actor>(beacons[0]);
 
-
+	//GIT GOOD
 	auto pawn = GetWorld()->GetFirstPlayerController()->GetPawn();
 	ship = Cast<ASpaceShip_Pawn>(pawn);
 
